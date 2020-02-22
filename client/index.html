@@ -6,6 +6,7 @@
 	<title>Drone App</title>
 	<script src="/dronestream/nodecopter-client.js"></script>
 	<script src="js/lib/core.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
 
 	<script defer src="js/lib/face-api.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -14,9 +15,19 @@
 	<link rel="stylesheet" href="styles.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 </head>
 
 <body>
+	<script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId            : '3219637394747364',
+		autoLogAppEvents : true,
+		xfbml            : true,
+		version          : 'v6.0'
+	  });
+  </script>
 
 	<div style="text-align:center">
 		<h1>
@@ -65,12 +76,17 @@
 				</div>
 			</div>
 			</div>
+			<canvas id="picture"></canvas>
+			<div id="shareBtn" class="btn btn-success clearfix">Share Picture</div>
+
+
 		</div>
 	</div>
 	<div></div>
 	</div>
 
 	<script type="text/javascript" charset="utf-8" src="js/controller.js"></script>
+	<script defer type="text/javascript" charset="utf-8" src="js/tfwrapper.js"></script>
 	<script defer type="text/javascript" charset="utf-8" src="js/facedetect.js"></script>
 </body>
 
