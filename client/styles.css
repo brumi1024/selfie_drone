@@ -38,3 +38,8 @@ button:disabled {
   min-width: 640px;
   min-height: 350px;
 }
+
+#live-view > canvas {
+  position:absolute;
+  top:15%;
+}
