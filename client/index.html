@@ -19,16 +19,6 @@
 </head>
 
 <body>
-	<script>
-	window.fbAsyncInit = function() {
-	  FB.init({
-		appId            : '3219637394747364',
-		autoLogAppEvents : true,
-		xfbml            : true,
-		version          : 'v6.0'
-	  });
-  </script>
-
 	<div style="text-align:center">
 		<h1>
 			Drone App
@@ -41,10 +31,12 @@
 				<div class="col s12 m14">
 					<div class="card">
 						<div class="card-image">
-	                        <video id="video" width="720" height="560" autoplay muted></video>
+	                        <video id="video" width="720" height="540" autoplay muted></video>
 							<!--<div id="droneStream" style="width: 640px; height: 360px"></div>-->
 
-							<span class="card-title">Live Image</span>
+							<span class="card-title" id="liveViewText">Live Image</span>
+							<span class="card-title" id="photoWillBeCreatedText">Photo will be created...</span>
+							<span class="card-title" id="photoCreatedText">Photo created!</span>
 						</div>
 						<div class="card-content">
 							<p>Use WASD buttons to move around, QE to turn and XC to increase or decrease height.</p>
@@ -69,20 +61,31 @@
 						<p>State: <span id="state"></span> </p>
 					</div>
 				
-				<div class="card-reveal">
-					<span class="card-title grey-text text-darken-4">Settings<i class="material-icons right">close</i></span>
-					<p>Speed: <input type="number" id="droneSpeed" name="speed"></p>
-					<button class="btn waves-effect waves-light" onclick="setSpeed()">Save</button>
+					<div class="card-reveal">
+						<span class="card-title grey-text text-darken-4">Settings<i class="material-icons right">close</i></span>
+						<p>Speed: <input type="number" id="droneSpeed" name="speed"></p>
+						<button class="btn waves-effect waves-light" onclick="setSpeed()">Save</button>
+					</div>
 				</div>
 			</div>
-			</div>
-			<canvas id="picture"></canvas>
-			<div id="shareBtn" class="btn btn-success clearfix">Share Picture</div>
-
-
 		</div>
-	</div>
-	<div></div>
+		<div class="row">
+				<div class="col s12 m14">
+					<div class="card">
+						<div class="card-image">
+							<canvas width="720" height="540" id="picture"></canvas>
+
+							<span class="card-title">Last photo</span>
+						</div>
+						<div class="card-content">
+							<p>Upon detecting a face and a thumbs up gesture a photo will be automatically created.</p>
+						</div>
+						<div class="card-action">
+							<a id="downloadBtn" class="btn btn-success clearfix">Save Picture</a>
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 
 	<script type="text/javascript" charset="utf-8" src="js/controller.js"></script>
