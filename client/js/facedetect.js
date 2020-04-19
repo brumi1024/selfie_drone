@@ -5,6 +5,8 @@ const MODEL_JSON = MODEL_URL + 'model.json'
 let consentGiven = confirm("Photos will be created of you, do you accept it?");
 
 const video = document.getElementById('video');
+const droneStreamCanvas = document.getElementById('droneStream').childNodes[0];
+//const duplicatedVideo = document.getElementById('duplicatedVid');
 const liveViewText = document.getElementById('liveViewText');
 const photoWillBeCreatedText = document.getElementById('photoWillBeCreatedText');
 const photoCreatedText = document.getElementById('photoCreatedText');
@@ -23,8 +25,15 @@ Promise.all([
 ]).then(startVideo);
 
 function startVideo() {
-    navigator.mediaDevices.getUserMedia({video: {}})
+    let stream = canvasTT.captureStream(30);
+    video.srcObject = stream;
+    /*navigator.mediaDevices.getUserMedia({video: {}})
     .then((stream)=> {video.srcObject = stream;}, (err)=> console.error(err));
+
+    duplicatedVideo.onplay = () => {
+      let stream = duplicatedVideo.captureStream();
+      video.srcObject = stream;
+    };*/
 }
 
 async function startTF() {
