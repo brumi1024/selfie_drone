@@ -37,7 +37,7 @@ button:disabled {
 #droneStream {
   opacity: 0; 
   position: absolute; 
-  z-index: 999;
+  z-index: -999;
   width: 640px; 
   height: 360px;
 }

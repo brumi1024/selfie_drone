@@ -25,7 +25,7 @@ Promise.all([
 ]).then(startVideo);
 
 function startVideo() {
-    let stream = canvasTT.captureStream(30);
+    let stream = droneStreamCanvas.captureStream(30);
     video.srcObject = stream;
     /*navigator.mediaDevices.getUserMedia({video: {}})
     .then((stream)=> {video.srcObject = stream;}, (err)=> console.error(err));
@@ -46,7 +46,7 @@ async function startTF() {
   
 async function detectFrame(video, model) {
     thumbs = await TFWrapper(model).detect(video);
-    const scoreHighEnough = element => element.score > 0.95;
+    const scoreHighEnough = element => element.score > 0.80;
     if (faceDetected && thumbs.some(scoreHighEnough)) {
         photoCounter++;
         if (photoCounter >= 0) {

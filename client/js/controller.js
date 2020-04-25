@@ -1,11 +1,17 @@
 new NodecopterStream(document.getElementById("droneStream"));
 
-var socket = io.connect('http://localhost:3000');
-  socket.on('batteryStatus', function (data) {
-    console.log(data);
-  });
+let droneBatteryState = document.getElementById("battery");
+let droneState = document.getElementById("state");
 
-var keyMapping = {
+let socket = io.connect('http://localhost:3000');
+socket.on('batteryStatus', function (data) {
+	if (data && data.hasOwnProperty("demo")) {
+		droneBatteryState.textContent = data.demo.batteryPercentage;
+		droneState.textContent = data.demo.controlState;
+	}
+});
+
+let keyMapping = {
 	87: "front",
 	65: "left",
 	83: "back",
@@ -16,7 +22,7 @@ var keyMapping = {
 	69: "clockwise"
 };
 
-var Control = {
+let Control = {
 	controlValues: {front: 0, back: 0, left: 0, right: 0, up: 0, down: 0, counterClockwise: 0, clockwise: 0},
 	speed: 0.1,
 	_sent: false,

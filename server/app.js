@@ -13,6 +13,7 @@ app.set('port', port);
 
 const server = http.createServer(app);
 let io = require('socket.io')(server);
+io.sockets.setMaxListeners(0);
 droneStream.listen(server);
 server.listen(port);
 
