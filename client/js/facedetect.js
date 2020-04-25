@@ -1,12 +1,16 @@
 const MODEL_URL = '/js/lib/model_web/'
 const LABELS_URL = MODEL_URL + 'labels.json'
 const MODEL_JSON = MODEL_URL + 'model.json'
+const mode = ''; // '' to change it to production mode or 'webcam' to webcam mode
 
 let consentGiven = confirm("Photos will be created of you, do you accept it?");
 
+const droneSteamDiv = document.getElementById("droneStream");
 const video = document.getElementById('video');
-const droneStreamCanvas = document.getElementById('droneStream').childNodes[0];
-//const duplicatedVideo = document.getElementById('duplicatedVid');
+if (mode != 'webcam') {
+    new NodecopterStream(droneSteamDiv);
+    const droneStreamCanvas = document.getElementById('droneStream').childNodes[0];
+}
 const liveViewText = document.getElementById('liveViewText');
 const photoWillBeCreatedText = document.getElementById('photoWillBeCreatedText');
 const photoCreatedText = document.getElementById('photoCreatedText');
@@ -25,16 +29,17 @@ Promise.all([
 ]).then(startVideo);
 
 function startVideo() {
-    let stream = droneStreamCanvas.captureStream(30);
-    video.srcObject = stream;
-    /*navigator.mediaDevices.getUserMedia({video: {}})
-    .then((stream)=> {video.srcObject = stream;}, (err)=> console.error(err));
-
-    duplicatedVideo.onplay = () => {
-      let stream = duplicatedVideo.captureStream();
-      video.srcObject = stream;
-    };*/
+    if (mode == 'webcam') {
+        video.setAttribute('width', 720);
+        video.setAttribute('height', 540);
+        navigator.mediaDevices.getUserMedia({video: {}})
+        .then((stream)=> {video.srcObject = stream;}, (err) => console.error(err));
+    } else {
+        let stream = droneStreamCanvas.captureStream(30);
+        video.srcObject = stream;
+    }
 }
+
 
 async function startTF() {
     const modelPromise = tf.loadGraphModel(MODEL_JSON)

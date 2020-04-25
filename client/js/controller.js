@@ -1,10 +1,8 @@
-new NodecopterStream(document.getElementById("droneStream"));
-
 let droneBatteryState = document.getElementById("battery");
 let droneState = document.getElementById("state");
 
 let socket = io.connect('http://localhost:3000');
-socket.on('batteryStatus', function (data) {
+socket.on('batteryStatus', (data) => {
 	if (data && data.hasOwnProperty("demo")) {
 		droneBatteryState.textContent = data.demo.batteryPercentage;
 		droneState.textContent = data.demo.controlState;
@@ -27,9 +25,9 @@ let Control = {
 	speed: 0.1,
 	_sent: false,
 
-	onKeydown: function (event) {
+	onKeydown: (event) => {
 		if ([87, 65, 83, 68, 88, 67, 81, 69].includes(event.keyCode)) {
-			var lastControlValue = this.controlValues[keyMapping[event.keyCode]];
+			const lastControlValue = this.controlValues[keyMapping[event.keyCode]];
 			this.controlValues[keyMapping[event.keyCode]] = this.speed;
 			if (lastControlValue != this.controlValues[keyMapping[event.keyCode]]) {
 				this._sent = false;
@@ -37,18 +35,18 @@ let Control = {
 		}
 	},
 
-	onKeyup: function (event) {
+	onKeyup: (event) => {
 		if ([87, 65, 83, 68, 88, 67, 81, 69].includes(event.keyCode)) {
 			this._sent = false;
 			this.controlValues[keyMapping[event.keyCode]] = 0;
 		}
 	},
 
-	isSent: function () {
+	isSent: () => {
 		return this._sent;
 	},
 
-	setSent: function () {
+	setSent: () => {
 		this._sent = true;
 	},
 
@@ -57,10 +55,10 @@ let Control = {
 	}
 };
 
-window.addEventListener('keyup', function (event) {
+window.addEventListener('keyup', (event) => {
 	Control.onKeyup(event);
 }, false);
-window.addEventListener('keydown', function (event) {
+window.addEventListener('keydown', (event) => {
 	Control.onKeydown(event);
 }, false);
 
@@ -74,8 +72,8 @@ function checkControl() {
 }
 
 function sendCommand(command, params) {
-	var request = new XMLHttpRequest();
-	var URL;
+	const request = new XMLHttpRequest();
+	let URL;
 	if (params != null && params != undefined) {
 		URL = `http://localhost:3000/api/command/${command}?front=${params.front}&back=${params.back}&left=${params.left}&right=${params.right}
 		&up=${params.up}&down=${params.down}&counterClockwise=${params.counterClockwise}&clockwise=${params.clockwise}`;
@@ -83,14 +81,14 @@ function sendCommand(command, params) {
 		URL = `http://localhost:3000/api/command/${command}`;
 	}
 	request.open('GET', URL, true);
-	request.onload = function () {
+	request.onload = () => {
 		document.getElementById("last_command").innerHTML = command + " " + this.response;
 	}
 	request.send();
 }
 
 function setSpeed() {
-	var desiredSpeed = document.getElementById("droneSpeed").value;
+	let desiredSpeed = document.getElementById("droneSpeed").value;
 	desiredSpeed = desiredSpeed > 1 ? 1 : desiredSpeed < 0 ? 0.01 : desiredSpeed;
 
 	if (!isNaN(desiredSpeed)) {
