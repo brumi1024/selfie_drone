@@ -49,5 +49,5 @@ button:disabled {
 
 #live-view > canvas {
   position:absolute;
-  top:13.5%;
+  top:11rem;
 }

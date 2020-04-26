@@ -81,8 +81,8 @@ function sendCommand(command, params) {
 		URL = `http://localhost:3000/api/command/${command}`;
 	}
 	request.open('GET', URL, true);
-	request.onload = () => {
-		document.getElementById("last_command").innerHTML = command + " " + this.response;
+	request.onload = (response) => {
+		document.getElementById("last_command").innerHTML = command + " " + response.currentTarget.response;
 	}
 	request.send();
 }

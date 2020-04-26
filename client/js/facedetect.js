@@ -1,7 +1,7 @@
 const MODEL_URL = '/js/lib/model_web/'
 const LABELS_URL = MODEL_URL + 'labels.json'
 const MODEL_JSON = MODEL_URL + 'model.json'
-const mode = ''; // '' to change it to production mode or 'webcam' to webcam mode
+const mode = 'webcam'; // '' to change it to production mode or 'webcam' to webcam mode
 
 let consentGiven = confirm("Photos will be created of you, do you accept it?");
 
@@ -10,14 +10,19 @@ const video = document.getElementById('video');
 if (mode != 'webcam') {
     new NodecopterStream(droneSteamDiv);
     const droneStreamCanvas = document.getElementById('droneStream').childNodes[0];
+} else {
+    video.setAttribute('width', 720);
+    video.setAttribute('height', 540);
 }
 const liveViewText = document.getElementById('liveViewText');
 const photoWillBeCreatedText = document.getElementById('photoWillBeCreatedText');
 const photoCreatedText = document.getElementById('photoCreatedText');
 const downloadBtn = document.getElementById('downloadBtn');
+const uploadBtn = document.getElementById('uploadBtn');
 
 let photoCounter = 0;
 let faceDetected = false;
+let actualPhoto;
 
 setStatusText(1);
 
@@ -30,8 +35,6 @@ Promise.all([
 
 function startVideo() {
     if (mode == 'webcam') {
-        video.setAttribute('width', 720);
-        video.setAttribute('height', 540);
         navigator.mediaDevices.getUserMedia({video: {}})
         .then((stream)=> {video.srcObject = stream;}, (err) => console.error(err));
     } else {
@@ -71,15 +74,28 @@ async function detectFrame(video, model) {
 }
 
 function capture() {
+    uploadBtn.disabled = false;
     let pictureCanvas = document.getElementById('picture');     
     pictureCanvas.width = video.videoWidth;
     pictureCanvas.height = video.videoHeight;
     pictureCanvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);  
-    const img = new Image();
+    actualPhoto = new Image();
     let dataUrl = pictureCanvas.toDataURL("image/png");
-    img.src = dataUrl;
+    actualPhoto.src = dataUrl;
     downloadBtn.setAttribute('download', 'photo.png');
     downloadBtn.setAttribute('href', dataUrl.replace("image/png", "image/octet-stream"));
+}
+
+function upload() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/uploadimage', true);
+    xhr.onload = (response) => {
+        id = response.currentTarget.responseText;
+        let url = "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrive.google.com%2Fopen%3Fid%3D" + id + "&amp;src=sdkpreparse";
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+    xhr.send(actualPhoto.src);
 }
 
 function setStatusText(status) {

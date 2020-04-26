@@ -15,9 +15,12 @@
 	<link rel="stylesheet" href="styles.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="materialize.min.css">
+	
 </head>
 
 <body>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/hu_HU/sdk.js#xfbml=1&version=v6.0"></script>
 	<div style="text-align:center">
 		<h1>
 			Drone App
@@ -79,8 +82,9 @@
 						<div class="card-content">
 							<p>Upon detecting a face and a thumbs up gesture a photo will be automatically created.</p>
 						</div>
-						<div class="card-action">
-							<a id="downloadBtn" class="btn btn-success clearfix">Save Picture</a>
+						<div class="card-action" id="pictureControls">
+							<a id="downloadBtn" class="btn waves-effect waves-light">Save Picture</a>
+							<button id="uploadBtn" class="btn waves-effect waves-light" onclick="upload()" disabled>Upload Picture</button>
 						</div>
 					</div>
 				</div>
