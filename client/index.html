@@ -44,29 +44,34 @@
 							<p>Use WASD buttons to move around, QE to turn and XC to increase or decrease height.</p>
 						</div>
 						<div class="card-action">
-							<button class="btn waves-effect waves-light" onclick="sendCommand('takeoff')">Takeoff</button>
-							<button class="btn waves-effect waves-light" onclick="sendCommand('land')">Land</button>
-							<button class="btn waves-effect waves-light" onclick="sendCommand('stop')">Stop</button>
-							<button class="btn waves-effect waves-light" onclick="sendCommand('auto')">Autonomous Flight</button>
+							<button id="takeoffBtn" class="btn waves-effect waves-light">Takeoff</button>
+							<button id="landBtn" class="btn waves-effect waves-light">Land</button>
+							<button id="stopBtn" class="btn waves-effect waves-light">Stop</button>
+							<button id="autoBtn" class="btn waves-effect waves-light">Autonomous Flight</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col s16 m14">
+			<div class="col s12 m14">
 				<div class="card blue-grey darken-1">
 					<div class="card-content white-text fix-size">
 						<span class="card-title activator white-text text-darken-4">Status<i class="material-icons right">more_vert</i></span>
-						<p>Last command sent: <span id="last_command"></span> </p>
+						<p>Connection status: <span id="connection_status"></span> </p>
+						<p>Drone status: <span id="state"></span> </p>
+						<p>Last command accepted: <span id="last_command"></span> </p>
 						<p>Battery: <span id="battery"></span> </p>
-						<p>State: <span id="state"></span> </p>
 					</div>
 				
 					<div class="card-reveal">
 						<span class="card-title grey-text text-darken-4">Settings<i class="material-icons right">close</i></span>
-						<p>Speed: <input type="number" id="droneSpeed" name="speed"></p>
-						<button class="btn waves-effect waves-light" onclick="setSpeed()">Save</button>
+						<p>control:euler_angle_max: <input type="text" id="euler_angle_max" name="euler_angle_max"></p>
+						<p>control:altitude_max: <input type="text" id="altitude_max" name="altitude_max"></p>
+						<p>control:control_vz_max: <input type="text" id="control_vz_max" name="control_vz_max"></p>
+						<p>control:control_yaw: <input type="text" id="control_yaw" name="control_yaw"></p>
+
+						<button id="saveConfigBtn" class="btn waves-effect waves-light">Save</button>
 					</div>
 				</div>
 			</div>
@@ -90,8 +95,8 @@
 				</div>
 			</div>
 	</div>
-
-	<script type="text/javascript" charset="utf-8" src="js/controller.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/Control.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
 	<script defer type="text/javascript" charset="utf-8" src="js/tfwrapper.js"></script>
 	<script defer type="text/javascript" charset="utf-8" src="js/facedetect.js"></script>
 </body>
