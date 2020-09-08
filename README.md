@@ -1,2 +1,3 @@
 # selfie_drone
-A JavaScript based Parrot AR.Drone controlling application with machine learning face and gesture detection. The development is in progress, currently the app is capable of connecting to and controlling the drone.
+A Javascript based Parrot AR.Drone controlling web application with machine learning face and gesture detection, using [ar-drone](https://github.com/felixge/node-ar-drone), [node-dronestream](https://github.com/bkw/node-dronestream) and [face-api.js](https://github.com/justadudewhohacks/face-api.js/).
+
