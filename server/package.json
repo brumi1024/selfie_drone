@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "ar-drone": "git+https://github.com/felixge/node-ar-drone.git",
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
