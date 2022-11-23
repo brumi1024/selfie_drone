@@ -22,6 +22,6 @@
     "nodestream": "^0.7.4",
     "pug": "^2.0.4",
     "requirejs": "^2.3.6",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.5.0"
   }
 }
